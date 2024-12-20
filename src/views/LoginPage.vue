@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { DEMO_CREDENTIALS } from '@/constants/demo-creds'
 import LoginScreenGraphics from '@/components/svgs/LoginScreenGraphics.vue'
+import Button from '@/components/ui/button/Button.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -161,15 +162,15 @@ const handleSubmit = async () => {
               :disabled="isSubmitting"
             />
           </div>
-          <button
+          <Button
             type="submit"
-            class="max-w-md px-12 mt-4 bg-white font-poppins text-lg text-blue-500 border-2 border-blue-500 py-3 rounded-full hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 mx-auto"
+            class="max-w-md px-10 mt-4 bg-white font-poppins text-lg text-blue-500 border-2 border-blue-500 py-6 rounded-full hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto"
             :disabled="isSubmitting"
           >
             <span v-if="!isSubmitting">Login</span>
-            <span v-if="!isSubmitting" class="ml-2 text-2xl py-0 my-0 -mt-[1.5px]">»</span>
+            <span v-if="!isSubmitting" class="text-2xl py-0 my-0 -mt-[1.5px]">»</span>
             <span v-if="isSubmitting">Processing...</span>
-          </button>
+          </Button>
         </form>
       </div>
     </div>

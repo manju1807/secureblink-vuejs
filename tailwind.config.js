@@ -10,6 +10,7 @@ export const content = [
   './app/**/*.{ts,tsx,vue}',
   './src/**/*.{ts,tsx,vue}',
 ]
+
 export const theme = {
   container: {
     center: true,
@@ -19,6 +20,33 @@ export const theme = {
     },
   },
   extend: {
+    // Font size configuration
+    fontSize: {
+      '2xs': ['0.625rem', { lineHeight: '0.875rem' }], // 10px
+      xs: ['0.75rem', { lineHeight: '1rem' }], // 12px
+      sm: ['0.875rem', { lineHeight: '1.25rem' }], // 14px
+      base: ['1rem', { lineHeight: '1.5rem' }], // 16px
+      lg: ['1.125rem', { lineHeight: '1.75rem' }], // 18px
+      xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
+      '2xl': ['1.5rem', { lineHeight: '2rem' }], // 24px
+      '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
+      '4xl': ['2.25rem', { lineHeight: '2.5rem' }], // 36px
+      '5xl': ['3rem', { lineHeight: '1' }], // 48px
+      '6xl': ['3.75rem', { lineHeight: '1' }], // 60px
+      '7xl': ['4.5rem', { lineHeight: '1' }], // 72px
+      '8xl': ['6rem', { lineHeight: '1' }], // 96px
+      '9xl': ['8rem', { lineHeight: '1' }], // 128px
+    },
+    // Screen size breakpoints
+    screens: {
+      xs: '475px', // Extra small devices
+      sm: '640px', // Small devices
+      md: '768px', // Medium devices
+      lg: '1024px', // Large devices
+      xl: '1280px', // Extra large devices
+      '2xl': '1536px', // 2X Extra large devices
+      '3xl': '1920px', // 3X Extra large devices
+    },
     colors: {
       border: 'hsl(var(--border))',
       input: 'hsl(var(--input))',
@@ -86,4 +114,5 @@ export const theme = {
     },
   },
 }
+
 export const plugins = [animate]
