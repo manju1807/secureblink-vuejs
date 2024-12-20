@@ -1,12 +1,12 @@
-import { fileURLToPath, URL } from 'node:url'
-
+// vite.config.ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
+import path from 'path'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
   css: {
     postcss: {
@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, './src')
     },
   },
 })

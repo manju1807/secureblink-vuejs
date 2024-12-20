@@ -1,7 +1,8 @@
-# netlify.toml
 [build]
   publish = "dist"
   command = """
+    corepack enable
+    corepack prepare pnpm@latest --activate
     pnpm install
     pnpm run build
   """
@@ -10,11 +11,9 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--version"
   PLAYWRIGHT_BROWSERS_PATH = "0"
-  # Enable pnpm
   NODE_OPTIONS = "--max_old_space_size=4096"
-  PNPM_FLAGS = "--no-frozen-lockfile"
-  # Use pnpm version 8
-  NPM_VERSION = "8"
+  USE_COREPACK = "true"
+  PNPM_FLAGS = "--strict-peer-dependencies"
 
 [[redirects]]
   from = "/*"
