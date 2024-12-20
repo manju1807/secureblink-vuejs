@@ -1,19 +1,17 @@
 [build]
   publish = "dist"
   command = """
-    corepack enable
-    corepack prepare pnpm@latest --activate
-    pnpm install
+    npm i -g pnpm
+    pnpm install --no-frozen-lockfile
     pnpm run build
   """
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--version"
-  PLAYWRIGHT_BROWSERS_PATH = "0"
+  NPM_VERSION = "10"
+  VITE_CJS_IGNORE_WARNING = "true"
+  VITE_CJS_TRACE = "true"
   NODE_OPTIONS = "--max_old_space_size=4096"
-  USE_COREPACK = "true"
-  PNPM_FLAGS = "--strict-peer-dependencies"
 
 [[redirects]]
   from = "/*"
@@ -28,13 +26,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
     Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; connect-src 'self' https:;"
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
-[dev]
-  command = "pnpm run dev"
-  port = 5173
-  targetPort = 5173
-  publish = "dist"
