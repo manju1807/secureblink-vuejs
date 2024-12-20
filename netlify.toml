@@ -1,26 +1,27 @@
 # netlify.toml
-
 [build]
-  # Directory that contains the built site files
   publish = "dist"
-  # Build command
-  command = "npm run build"
-  
+  command = """
+    pnpm install
+    pnpm run build
+  """
+
 [build.environment]
-  # Specify Node.js version
   NODE_VERSION = "20"
-  # Enable pnpm (since your package-lock suggests you're using pnpm)
   NPM_FLAGS = "--version"
   PLAYWRIGHT_BROWSERS_PATH = "0"
+  # Enable pnpm
+  NODE_OPTIONS = "--max_old_space_size=4096"
+  PNPM_FLAGS = "--no-frozen-lockfile"
+  # Use pnpm version 8
+  NPM_VERSION = "8"
 
 [[redirects]]
-  # Handle SPA routing - redirect all paths to index.html
   from = "/*"
   to = "/index.html"
   status = 200
 
 [[headers]]
-  # Define security headers
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
@@ -30,17 +31,11 @@
     Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; connect-src 'self' https:;"
 
 [functions]
-  # Specifies functions directory if you're using Netlify Functions
   directory = "netlify/functions"
-  # Set functions timeout
   node_bundler = "esbuild"
 
 [dev]
-  # Local dev command
-  command = "npm run dev"
-  # Set port for local development
+  command = "pnpm run dev"
   port = 5173
-  # Set target port for proxy
   targetPort = 5173
-  # Enable debug mode
   publish = "dist"
