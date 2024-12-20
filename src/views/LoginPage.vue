@@ -1,9 +1,10 @@
-// src/views/Login.vue
+// src/views/LoginPage.vue
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { DEMO_CREDENTIALS } from '@/constants/demo-creds'
+import LoginScreenGraphics from '@/components/svgs/LoginScreenGraphics.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -109,68 +110,68 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
-    <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-      <!-- Demo Credentials Notice -->
-      <div class="mb-4 p-3 bg-blue-50 text-blue-700 rounded-md">
-        <p class="text-sm">
-          <strong>Demo Credentials:</strong><br />
-          Email: {{ DEMO_CREDENTIALS.email }}<br />
-          Password: {{ DEMO_CREDENTIALS.password }}
-        </p>
+  <div class="min-h-screen max-h-screen overflow-clip flex">
+    <!-- Left side with graphic -->
+    <div class="w-1/2 bg-gradient-to-r from-blue-50 to-transparent relative">
+      <div class="absolute w-[180%] h-[180%] -left-[30rem] -top-[22rem] drop-shadow-md">
+        <LoginScreenGraphics />
       </div>
-      <form @submit.prevent="handleSubmit" class="space-y-4" novalidate>
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2"> Email </label>
-          <input
-            type="email"
-            v-model="formData.email"
-            @blur="handleBlur('email')"
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-            :class="{
-              'border-red-500 ring-red-200': isEmailInvalid,
-              'border-gray-300': !isEmailInvalid,
-            }"
-            required
-            :disabled="isSubmitting"
-          />
-          <div v-if="isEmailInvalid" class="mt-1">
-            <p v-for="error in errors.email" :key="error" class="text-red-500 text-xs">
-              {{ error }}
-            </p>
+    </div>
+    <!-- Right side with form -->
+    <div class="w-1/2 flex items-center justify-center">
+      <div class="w-full max-w-sm">
+        <h1 class="text-3xl font-bold tracking-tight text-center mb-12">
+          Login to Access Dashboard
+        </h1>
+        <form @submit.prevent="handleSubmit" class="space-y-8" novalidate>
+          <div class="font-poppins text-lg">
+            <label class="block font-semibold text-gray-700 mb-2">
+              Email<span class="text-red-500 ml-0.5">*</span>
+            </label>
+            <input
+              type="email"
+              v-model="formData.email"
+              @blur="handleBlur('email')"
+              class="w-full px-4 py-3 border-[2px] rounded-sm focus:outline-none focus:border-blue-500"
+              :class="{
+                'border-red-500': isEmailInvalid,
+                'border-[#707070]': !isEmailInvalid,
+              }"
+              required
+              :disabled="isSubmitting"
+            />
           </div>
-        </div>
-
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2"> Password </label>
-          <input
-            type="password"
-            v-model="formData.password"
-            @blur="handleBlur('password')"
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-            :class="{
-              'border-red-500 ring-red-200': isPasswordInvalid,
-              'border-gray-300': !isPasswordInvalid,
-            }"
-            required
-            :disabled="isSubmitting"
-          />
-          <div v-if="isPasswordInvalid" class="mt-1">
-            <p v-for="error in errors.password" :key="error" class="text-red-500 text-xs">
-              {{ error }}
-            </p>
+          <div class="font-poppins text-lg">
+            <div class="flex justify-between items-center mb-2">
+              <label class="block font-semibold text-gray-700">
+                Password<span class="text-red-500 ml-0.5">*</span>
+              </label>
+              <a href="#" class="text-red-500 hover:text-red-600">Forget Password?</a>
+            </div>
+            <input
+              type="password"
+              v-model="formData.password"
+              @blur="handleBlur('password')"
+              class="w-full px-4 py-3 border-[2px] rounded-sm focus:outline-none focus:border-blue-500"
+              :class="{
+                'border-red-500': isPasswordInvalid,
+                'border-[#707070]': !isPasswordInvalid,
+              }"
+              required
+              :disabled="isSubmitting"
+            />
           </div>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="isSubmitting"
-        >
-          <span v-if="isSubmitting">Logging in...</span>
-          <span v-else>Log In</span>
-        </button>
-      </form>
+          <button
+            type="submit"
+            class="max-w-md px-12 mt-4 bg-white font-poppins text-lg text-blue-500 border-2 border-blue-500 py-3 rounded-full hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 mx-auto"
+            :disabled="isSubmitting"
+          >
+            <span v-if="!isSubmitting">Login</span>
+            <span v-if="!isSubmitting" class="ml-2 text-2xl py-0 my-0 -mt-[1.5px]">»</span>
+            <span v-if="isSubmitting">Processing...</span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>

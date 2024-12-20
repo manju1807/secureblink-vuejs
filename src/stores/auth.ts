@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
         }
 
         // Simulating some network delay for demo purposes in this assignment!
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        await new Promise(resolve => setTimeout(resolve, 200))
 
         // Validate demo credentials
         if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
