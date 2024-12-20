@@ -10,7 +10,9 @@
     },
     "types": ["node"],
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowJs": true
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   }
 }

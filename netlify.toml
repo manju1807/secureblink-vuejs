@@ -1,9 +1,8 @@
 [build]
   publish = "dist"
   command = """
-    npm i -g pnpm
-    pnpm install --no-frozen-lockfile
-    pnpm run build
+    npm install
+    npm run build
   """
 
 [build.environment]
