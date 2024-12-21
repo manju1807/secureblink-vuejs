@@ -5,7 +5,7 @@ import VueApexCharts from 'vue3-apexcharts'
 import { currencies, countryStats, financialOverview } from '@/constants/dashboard-data'
 import { generateChartData } from '@/utils/generateChartData'
 import { formatCurrency } from '@/utils/formatCurrency'
-import { getBaseChartOptions } from '@/configs/ChartConfig'
+import { getBaseChartOptions } from '@/configs/chartConfig'
 import type { ApexOptions } from 'apexcharts'
 
 // Types
