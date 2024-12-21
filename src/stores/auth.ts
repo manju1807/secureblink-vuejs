@@ -6,9 +6,9 @@ import { defineStore } from 'pinia'
 import { toast } from 'vue-sonner'
 
 /**
-* Authentication store to manage user login state and credentials in the login page!
-* Uses pinia-plugin-persistedstate for persistence of auth state
-*/
+ * Authentication store to manage user login state and credentials in the login page!
+ * Uses pinia-plugin-persistedstate for persistence of auth state
+ */
 
 export const useAuthStore = defineStore('auth', {
   /**
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
     user: null,
     token: localStorage.getItem('token'),
     loading: false,
-    error: null
+    error: null,
   }),
 
   /**
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
     isLoading: (state) => state.loading,
 
     // Returns authentication error message
-    getError: (state) => state.error
+    getError: (state) => state.error,
   },
 
   /**
@@ -53,7 +53,7 @@ export const useAuthStore = defineStore('auth', {
      * @param email - User email
      * @param password - User password
      * @returns Promise<boolean>
-    */
+     */
 
     async login(email: string, password: string) {
       this.loading = true
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
         }
 
         // Simulating some network delay for demo purposes in this assignment!
-        await new Promise(resolve => setTimeout(resolve, 200))
+        await new Promise((resolve) => setTimeout(resolve, 200))
 
         // Validate demo credentials
         if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
@@ -76,13 +76,13 @@ export const useAuthStore = defineStore('auth', {
           this.setToken(demoToken)
           this.setUser({
             email: DEMO_CREDENTIALS.email,
-            name: 'Demo User'
+            name: 'Demo User',
           })
           this.isAuthenticated = true
 
           toast.success('Login successful! Welcome back, Demo User.', {
             description: 'Redirecting to dashboard...',
-            duration: 3000
+            duration: 3000,
           })
 
           return true
@@ -95,7 +95,7 @@ export const useAuthStore = defineStore('auth', {
 
         toast.error('Login failed', {
           description: errorMessage,
-          duration: 4000
+          duration: 4000,
         })
 
         return false
@@ -118,12 +118,12 @@ export const useAuthStore = defineStore('auth', {
 
         toast.success('Logged out successfully', {
           description: 'See you next time!',
-          duration: 3000
+          duration: 3000,
         })
       } catch (error: unknown) {
         toast.error('Logout failed', {
           description: `Please try again! because an unexpected error occurred ${(error as Error).message}`,
-          duration: 3000
+          duration: 3000,
         })
       }
     },
@@ -139,7 +139,7 @@ export const useAuthStore = defineStore('auth', {
       } catch (error: unknown) {
         toast.error('Failed to save user data', {
           description: `Some features may be unavailable ${(error as Error).message}`,
-          duration: 3000
+          duration: 3000,
         })
       }
     },
@@ -154,7 +154,7 @@ export const useAuthStore = defineStore('auth', {
       } catch (error: unknown) {
         toast.error('Failed to save authentication token', {
           description: `Please try logging in again  ${(error as Error).message}`,
-          duration: 3000
+          duration: 3000,
         })
       }
     },
@@ -179,13 +179,13 @@ export const useAuthStore = defineStore('auth', {
       } catch (error: unknown) {
         toast.error('Failed to restore session', {
           description: `Please log in again  ${(error as Error).message}`,
-          duration: 3000
+          duration: 3000,
         })
         this.logout()
       }
-    }
+    },
   },
 
   // Enable state persistence with pinia-plugin-persistedstate
-  persist: true
+  persist: true,
 })

@@ -1,6 +1,6 @@
 // src/types/index.ts
 
-import type { Component } from "vue"
+import type { Component } from 'vue'
 import type { ApexOptions } from 'apexcharts'
 
 export interface User {
@@ -12,8 +12,8 @@ export interface AuthState {
   isAuthenticated: boolean
   user: User | null
   token: string | null
-  loading: boolean;
-  error: string | null;
+  loading: boolean
+  error: string | null
 }
 
 // Types

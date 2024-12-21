@@ -1,18 +1,18 @@
 // chartConfig.ts
 import type { ApexOptions } from 'apexcharts'
-import { CHART_COLORS } from '@/constants/dashboard-data';
+import { CHART_COLORS } from '@/constants/dashboard-data'
 
 export const getBaseChartOptions = (trend: 'up' | 'down'): ApexOptions => ({
   chart: {
     type: 'line',
     sparkline: {
-      enabled: true
+      enabled: true,
     },
     animations: {
       enabled: true,
       animateGradually: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     toolbar: {
       show: false,
@@ -23,30 +23,30 @@ export const getBaseChartOptions = (trend: 'up' | 'down'): ApexOptions => ({
         zoomin: false,
         zoomout: false,
         pan: false,
-        reset: false
-      }
+        reset: false,
+      },
     },
-    background: 'transparent'
+    background: 'transparent',
   },
   states: {
     hover: {
       filter: {
-        type: 'none'
-      }
+        type: 'none',
+      },
     },
     active: {
       filter: {
-        type: 'none'
-      }
-    }
+        type: 'none',
+      },
+    },
   },
   stroke: {
     curve: 'smooth',
     width: 1.5,
-    colors: [trend === 'up' ? CHART_COLORS.up : CHART_COLORS.down]
+    colors: [trend === 'up' ? CHART_COLORS.up : CHART_COLORS.down],
   },
   tooltip: {
-    enabled: false
+    enabled: false,
   },
   grid: {
     show: false,
@@ -54,43 +54,45 @@ export const getBaseChartOptions = (trend: 'up' | 'down'): ApexOptions => ({
       left: 0,
       right: 0,
       top: 0,
-      bottom: 0
-    }
+      bottom: 0,
+    },
   },
   legend: {
-    show: false
+    show: false,
   },
   dataLabels: {
-    enabled: false
+    enabled: false,
   },
   xaxis: {
     labels: {
-      show: false
+      show: false,
     },
     axisBorder: {
-      show: false
+      show: false,
     },
     axisTicks: {
-      show: false
-    }
+      show: false,
+    },
   },
   yaxis: {
     labels: {
-      show: false
+      show: false,
     },
     min: undefined,
-    max: undefined
+    max: undefined,
   },
   markers: {
     size: 0,
-    strokeWidth: 0
+    strokeWidth: 0,
   },
-  responsive: [{
-    breakpoint: 1000,
-    options: {
-      chart: {
-        width: '100%'
-      }
-    }
-  }]
+  responsive: [
+    {
+      breakpoint: 1000,
+      options: {
+        chart: {
+          width: '100%',
+        },
+      },
+    },
+  ],
 })

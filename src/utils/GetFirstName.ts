@@ -5,14 +5,14 @@
  */
 export function getFirstName(fullName: string): string {
   if (!fullName || typeof fullName !== 'string') {
-    return '';
+    return ''
   }
 
-  const nameParts = fullName.trim().split(' ');
-  return nameParts[0] || '';
+  const nameParts = fullName.trim().split(' ')
+  return nameParts[0] || ''
 }
 
 // Example usage:
-const fullName = "Andrew Johnstons";
-const firstName = getFirstName(fullName);
-console.log(firstName); // Output: "Andrew"
+const fullName = 'Andrew Johnstons'
+const firstName = getFirstName(fullName)
+console.log(firstName) // Output: "Andrew"
