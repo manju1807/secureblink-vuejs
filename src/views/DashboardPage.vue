@@ -11,7 +11,9 @@ defineOptions({
 </script>
 
 <template>
-  <div class="min-h-screen max-h-screen bg-[rgba(252, 252, 252, 1)] overflow-clip flex flex-row">
+  <div
+    class="min-h-screen max-h-[100dvh] max-w-[100dvw] bg-[rgba(252, 252, 252, 1)] overflow-clip flex flex-row"
+  >
     <!-- Sidebar Component -->
     <Sidebar />
 
