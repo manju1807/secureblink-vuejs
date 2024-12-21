@@ -1,60 +1,65 @@
 <script setup lang="ts">
-// You can import your SVG components here
-// Component Name
+import AboutGraphic from '@/components/graphics/AboutScreenGraphics.vue'
+import RightTriangle from '@/components/graphics/RightTriangle.vue'
+import AboutSectionDotted from '@/components/graphics/AboutSectionDotted.vue'
+import AboutSectionTriangle from '@/components/graphics/AboutSectionTriangle.vue'
+
 defineOptions({ name: 'AboutSection' })
 </script>
 
 <template>
-  <section class="min-h-screen bg-white relative overflow-hidden">
-    <!-- Left side decorative elements -->
-    <div class="absolute left-0 top-1/4 w-1/2 h-1/2">
-      <!-- Placeholder for your geometric SVG elements -->
-      <div class="absolute left-10 top-10 w-32 h-32 bg-blue-500"></div>
-      <div class="absolute left-48 top-20 w-24 h-24 bg-blue-500"></div>
-      <div class="absolute left-24 top-48 w-16 h-4 bg-blue-500"></div>
-      <!-- Add more placeholder elements as needed -->
+  <section class="relative min-h-[100dvh] overflow-hidden">
+    <!-- Left side with responsive graphic -->
+    <div class="absolute left-0 top-0 h-full w-1/2">
+      <div
+        class="absolute h-[154%] w-[154%] -translate-x-[40%] -translate-y-[10%] transform-gpu drop-shadow-lg"
+      >
+        <AboutGraphic class="h-full w-full" />
+      </div>
     </div>
 
     <!-- Right side content -->
-    <div class="container mx-auto px-4 py-16">
-      <div class="max-w-2xl ml-auto">
-        <div class="mb-6">
-          <span class="text-blue-500 font-medium flex items-center gap-2">
-            <span class="text-lg">▶</span>
+    <div class="relative ml-auto w-1/2 px-8 h-[100dvh] flex items-center justify-start">
+      <div class="absolute -top-5 -right-16 h-96 w-96 transform">
+        <AboutSectionTriangle width="100%" height="100%" />
+      </div>
+      <div class="max-w-xl">
+        <div class="mb-4">
+          <span class="flex items-center gap-2 font-semibold text-blue-500">
+            <RightTriangle class="h-8 w-8" />
             ABOUT US
           </span>
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Great Digital Agency</h1>
+        <h2 class="mb-6 text-4xl font-bold text-gray-900">Great Digital Agency</h2>
 
-        <p class="text-gray-600 mb-8">
+        <p class="mb-6 text-gray-700">
           Our products are fully custom-made, built with the latest technologies and
           cloud-architectures.
         </p>
 
-        <p class="text-gray-500 mb-8">
+        <p class="mb-8 text-gray-500">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ex odio, turpis accumsan
           congue. Quisque blandit dui Pellentesque habitant morbi tristique senectus et netus et
           malesuada fames ac turpis egestas. In convallis porta mauris non aliquam.
         </p>
 
         <button
-          class="inline-flex items-center px-6 py-3 rounded-full bg-white text-blue-500 border border-blue-500 hover:bg-blue-50 transition-colors"
+          class="group flex items-center rounded-full border border-blue-500 bg-white px-8 py-3 text-blue-500 transition-colors hover:bg-blue-50"
         >
           Get Started
-          <span class="ml-2">»</span>
+          <span class="ml-2 transition-transform group-hover:translate-x-1">»</span>
         </button>
       </div>
-    </div>
-
-    <!-- Right side decorative dots -->
-    <div class="absolute right-0 bottom-0 w-48 h-48">
-      <!-- Placeholder for your dots pattern SVG -->
-      <div class="grid grid-cols-8 gap-2">
-        {/* You can replace this with your actual SVG */}
-        <template v-for="n in 64" :key="n">
-          <div class="w-1 h-1 rounded-full bg-blue-500 opacity-60"></div>
-        </template>
+      <!-- Dotted pattern -->
+      <div class="absolute bottom-0 right-0">
+        <div class="relative h-64 w-64 transform">
+          <AboutSectionDotted
+            width="100%"
+            height="100%"
+            class="h-full w-full text-blue-500 opacity-20"
+          />
+        </div>
       </div>
     </div>
   </section>
