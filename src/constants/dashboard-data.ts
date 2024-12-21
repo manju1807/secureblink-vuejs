@@ -1,10 +1,11 @@
+import IconDashboard from "@/components/icons/IconDashboard.vue";
 import type { CountryStatistic } from "@/types";
 
 // User Data
 export const userData = {
   name: "Andrew Johnstons",
   role: "Top Trader",
-  avatar: "../../public/profile-pic.jpg"
+  avatar: '/Andrew-Johnston.jpg'
 };
 
 
@@ -78,22 +79,22 @@ export const teamMembers = [
   {
     name: "Andrew Johnston",
     role: "Top Trader",
-    avatar: "/path/to/andrew.jpg"
+    avatar: '/Andrew-Johnston.jpg'
   },
   {
     name: "Anna Atkinsons",
     role: "Manager",
-    avatar: "/path/to/anna.jpg"
+    avatar: "/Anna-Atkinsons.jpg"
   },
   {
     name: "Mark Atkinsons",
     role: "Top Trader",
-    avatar: "/path/to/mark.jpg"
+    avatar: "/Mark-Atkinsons.jpg"
   },
   {
     name: "Johanna Tairons",
     role: "Manager",
-    avatar: "/path/to/johanna.jpg"
+    avatar: "/Johanna-Tairons.jpg"
   }
 ];
 
@@ -101,16 +102,19 @@ export const teamMembers = [
 export const countryComparison = [
   {
     country: "United States",
+    icon: IconDashboard,
     percentage: 93,
     flag: "🇺🇸"
   },
   {
     country: "Italy",
+    icon: IconDashboard,
     percentage: 73,
     flag: "🇮🇹"
   },
   {
     country: "Spain",
+    icon: IconDashboard,
     percentage: 13,
     flag: "🇪🇸"
   }

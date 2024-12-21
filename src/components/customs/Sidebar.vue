@@ -1,8 +1,35 @@
+// Sidebar.vue
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { mainNavigationItems, logoutItem } from '@/constants/sidebar-data'
+
+// Component Name
+defineOptions({
+  name: 'Sidebar',
+})
+
+// Composables
+const router = useRouter()
+const route = useRoute()
+const authStore = useAuthStore()
+
+// Computed
+const isActivePath = computed(() => (path: string) => route.path === path)
+
+// Methods
+const handleLogout = async () => {
+  authStore.logout()
+  router.push('/login')
+}
+</script>
+
 <template>
   <nav
-    class="min-h-screen flex flex-col min-w-[60px] w-full max-w-[80px] md:max-w-[200px] py-3 bg-white shadow-[0_3px_26px_rgba(0,0,0,0.11)]"
+    class="min-h-screen flex flex-col min-w-[60px] w-full max-w-[80px] md:max-w-[200px] py-3 bg-white shadow-[0px_3px_26px_#00000017]"
   >
-    <!-- Main navigation items -->
+    <!-- Main Navigation Items -->
     <div
       class="flex flex-col justify-center items-center w-full py-4 space-y-4 mb-auto px-2 md:px-0"
     >
@@ -11,12 +38,13 @@
         :key="item.name"
         class="w-full md:w-[160px] flex flex-col items-center justify-center"
       >
+        <!-- Active Navigation Link -->
         <router-link
           v-if="!item.isDisabled"
           :to="item.path"
-          class="flex flex-col items-center justify-center py-2 md:py-6 px-2 w-full rounded-sm transition-colors duration-200 hover:text-blue-500"
+          class="flex flex-col items-center justify-center py-3 md:py-6 px-2 w-full rounded-sm transition-colors duration-200 hover:text-blue-500"
           :class="{
-            'text-blue-500 shadow-[0_2px_8px_0px_rgba(31,100,255,0.15)]': isActivePath(item.path),
+            'text-blue-500 shadow-[0px_3px_26px_#00000026]': isActivePath(item.path),
           }"
         >
           <component
@@ -32,6 +60,7 @@
           </span>
         </router-link>
 
+        <!-- Disabled Navigation Item -->
         <div
           v-else
           class="flex flex-col items-center justify-center py-4 md:py-6 px-2 w-full rounded-sm opacity-50 cursor-not-allowed"
@@ -45,7 +74,7 @@
       </div>
     </div>
 
-    <!-- Logout button -->
+    <!-- Logout Button -->
     <router-link
       :to="logoutItem.path"
       class="flex flex-col items-center justify-center py-4 md:py-6 px-2 w-full rounded-sm transition-colors duration-200 group text-[#8990AD] hover:text-blue-500"
@@ -70,23 +99,3 @@
     </router-link>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { mainNavigationItems, logoutItem } from '@/constants/sidebar-data'
-
-// Composables
-const router = useRouter()
-const route = useRoute()
-const authStore = useAuthStore()
-
-// Methods
-const isActivePath = computed(() => (path: string) => route.path === path)
-
-const handleLogout = async () => {
-  authStore.logout()
-  router.push('/login')
-}
-</script>

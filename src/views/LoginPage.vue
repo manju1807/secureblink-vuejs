@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { DEMO_CREDENTIALS } from '@/constants/demo-creds'
-import LoginScreenGraphics from '@/components/svgs/LoginScreenGraphics.vue'
+import LoginScreenGraphics from '@/components/graphics/LoginScreenGraphics.vue'
 import Button from '@/components/ui/button/Button.vue'
 
 const router = useRouter()

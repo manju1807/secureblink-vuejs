@@ -9,17 +9,19 @@ import { getBaseChartOptions } from '@/configs/chartConfig'
 import type { ApexOptions } from 'apexcharts'
 
 // Types
-interface FinancialMetric {
+export interface TrendInfo {
+  value: string
+  isPositive: boolean
+}
+
+export interface FinancialMetric {
   label: string
   value: string | number
-  trend?: {
-    value: string
-    isPositive: boolean
-  }
+  trend?: TrendInfo
   hasBorder?: boolean
 }
 
-interface CountryChartData {
+export interface CountryChartData {
   country: string
   value: number
   trend: 'up' | 'down'
@@ -32,11 +34,17 @@ interface CountryChartData {
   }
 }
 
+// Component Name
+defineOptions({
+  name: 'DashboardMetrics',
+})
+
 // Computed Properties
 const financialMetrics = computed<FinancialMetric[]>(() => [
   {
     label: 'BALANCE',
     value: formatCurrency(financialOverview.balance),
+    hasBorder: true,
   },
   {
     label: 'PROFITS',
@@ -74,29 +82,32 @@ const countryCharts = computed<CountryChartData[]>(() =>
     },
   })),
 )
-
-defineOptions({
-  name: 'DashboardMetrics',
-})
 </script>
 
 <template>
-  <main class="w-full bg-white">
+  <main class="w-full">
     <!-- Financial Metrics Section -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-2 mb-6 md:mb-8">
-      <!-- Dynamic Financial Metrics -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+      <!-- Financial Metrics Cards -->
       <div
         v-for="(metric, index) in financialMetrics"
         :key="index"
         :class="[
-          'space-y-1 px-4 md:px-6 py-3 md:py-0',
-          'bg-white rounded-lg shadow-sm md:shadow-none',
-          metric.hasBorder && 'md:border-l md:border-[#C5C9D7]',
+          'space-y-1 px-4 md:px-0 py-3 md:py-0',
+          'bg-white shadow-[0px_3px_26px_#00000017] rounded-none md:shadow-none',
+          metric.hasBorder && 'md:border-r md:border-[#C5C9D7]',
         ]"
       >
-        <h2 class="text-[#8990AD] text-sm">{{ metric.label }}</h2>
+        <!-- Metric Header -->
+        <h2 class="text-[#8990AD] text-sm">
+          {{ metric.label }}
+        </h2>
+
+        <!-- Metric Value and Trend -->
         <div class="flex items-center gap-2 flex-wrap">
-          <span class="text-2xl md:text-3xl font-semibold">{{ metric.value }}</span>
+          <span class="text-2xl md:text-3xl font-semibold">
+            {{ metric.value }}
+          </span>
           <span
             v-if="metric.trend"
             :class="[
@@ -114,8 +125,7 @@ defineOptions({
       <div
         :class="[
           'space-y-1 px-4 md:px-6 py-3 md:py-0',
-          'bg-white rounded-lg shadow-sm md:shadow-none',
-          'md:border-l md:border-[#C5C9D7]',
+          'bg-white shadow-[0px_3px_26px_#00000017] rounded-none md:shadow-none',
         ]"
       >
         <h2 class="text-[#8990AD] text-sm">CURRENCIES</h2>
@@ -123,7 +133,7 @@ defineOptions({
           <span
             v-for="(currency, index) in currencies"
             :key="index"
-            class="currency-symbol text-sm md:text-base"
+            class="bg-[#c0d3ff4b] text-[#2464fc] px-3 py-1 rounded-full grid place-items-center min-w-10 h-10 text-sm md:text-base transition-opacity hover:opacity-80"
           >
             {{ currency }}
           </span>
@@ -133,21 +143,31 @@ defineOptions({
 
     <!-- Country Statistics Grid -->
     <section
-      class="country-stat-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 rounded-sm p-4 md:p-6 mb-6 md:mb-8"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 rounded-sm p-0 md:p-6 mb-6 md:mb-8 bg-transparent md:bg-white md:shadow-[0px_3px_26px_#00000017]"
     >
+      <!-- Country Stat Cards -->
       <div
         v-for="(stat, index) in countryCharts"
         :key="index"
-        class="country-stat space-y-2 flex flex-col items-center overflow-clip bg-white p-3 rounded-lg"
+        class="flex flex-col items-center space-y-2 bg-white p-3 rounded-lg overflow-hidden shadow-[0px_3px_26px_#00000017] md:shadow-none"
       >
-        <h3 class="text-gray-600 text-sm md:text-md">{{ stat.country }}</h3>
+        <!-- Country Name -->
+        <h3 class="text-gray-600 text-sm md:text-base">
+          {{ stat.country }}
+        </h3>
+
+        <!-- Country Value and Trend -->
         <div class="flex items-center gap-2">
-          <span class="text-xl md:text-2xl font-bold">{{ stat.value }}</span>
-          <span :class="stat.trend === 'up' ? 'text-green-500' : 'text-red-500'">
+          <span class="text-xl md:text-2xl font-bold">
+            {{ stat.value }}
+          </span>
+          <span :class="[stat.trend === 'up' ? 'text-green-500' : 'text-red-500']">
             {{ stat.trend === 'up' ? '▲' : '▼' }}
           </span>
         </div>
-        <div class="h-12 w-full">
+
+        <!-- Chart -->
+        <div class="h-12 w-full [&_.apexcharts-canvas]:!bg-transparent">
           <VueApexCharts
             type="line"
             :options="stat.chartData.options"
@@ -160,43 +180,3 @@ defineOptions({
     </section>
   </main>
 </template>
-
-<style scoped>
-.country-stat :deep(.apexcharts-canvas) {
-  background: transparent !important;
-}
-
-.currency-symbol {
-  transition: opacity 0.2s ease;
-  background-color: #c0d3ff4b;
-  color: #2464fc;
-  padding: 0.2rem 0.6rem;
-  border-radius: 100%;
-  display: grid;
-  place-items: center;
-  min-width: 2.5rem;
-  height: 2.5rem;
-}
-
-.currency-symbol:hover {
-  opacity: 0.8;
-}
-
-.country-stat-container {
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  box-shadow: 0px 3px 26px rgba(0, 0, 0, 0.09);
-}
-
-@media (max-width: 768px) {
-  .country-stat {
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .country-stat-container {
-    box-shadow: none;
-    background: transparent;
-    padding: 0;
-  }
-}
-</style>
